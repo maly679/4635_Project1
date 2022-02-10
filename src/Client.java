@@ -1,7 +1,9 @@
 
 /**
- * Title: COMP4635 Task 2. Basic Socket Communication. Clients and Servers
- * Usage: java SingleRequestClient [host] [port] [request]
+ * Title: COMP4635 Assignment 1
+ * This class is used for the Client that entails the user interface activities.
+ * Usage: java Client [localhost] [5599] 
+ * @author Mohamed Aly
  */
 
 import java.io.BufferedReader;
@@ -13,8 +15,9 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+//Class invocation 
 public class Client {
-	private static final String USAGE = "java SingleRequestClient [host] [port] [UserGeneratedRequest]";
+	private static final String USAGE = "java Client [host] [5599]";
 	private static Socket clientSocket;
 
 	public Client(String host, int port) {
@@ -27,17 +30,14 @@ public class Client {
 	}
 	
 	String getUserGeneratedRequest() throws IOException {
-		
+		//instantiation of game.	
 		String line = "";
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("If you would like to start a new game, enter yes: ");
 		String userGeneratedRequest = in.readLine();
-		
 		if (userGeneratedRequest.equals("yes")) {
 			int numWords = processNumberofWords();
 			int failedAttemptsFactor = processFailedAttemptsFactor();
-			System.out.println(numWords);
-			System.out.println(failedAttemptsFactor);
 			line =  "start " + numWords + " " + failedAttemptsFactor;
 		} else {
 			getUserGeneratedRequest();
@@ -46,7 +46,9 @@ public class Client {
 		return line;
 	}
 	
+	
 	int processNumberofWords() throws IOException {
+		//process number of words for game
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please enter the number of words for the game: ");
 		int numWords = Integer.parseInt(in.readLine());
@@ -55,19 +57,18 @@ public class Client {
 	}
 	
 	int processFailedAttemptsFactor() throws IOException {
-
+		//process number of failed attempts for game
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please enter the failed attempts factor: ");
 		int failedAttempts =  Integer.parseInt(in.readLine());
 		return failedAttempts;
 	}
 	
-	//writes the request to the server!
+
 	void writeRequest(String UserGeneratedRequest) {
-		
+		//writing request to server
 		System.out.println("\nSending the request: " + UserGeneratedRequest + " to the server!");
 		try {
-			// Create output streams & write the request to the server
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
 			out.println(UserGeneratedRequest);
 			out.println();
@@ -77,16 +78,16 @@ public class Client {
 		}
 	}
 
-	void readAndPrintResponse(Client client) {
+	void readAndProcessResponse(Client client) {
 		System.out.println("\nWaiting for reply from the server!");
 		try {
-			//reading response from server..
+			//reading and processing next request
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			clientSocket.setSoTimeout(10000);
 			String line = in.readLine();
 
 			while (!line.equals("Quit")) {
-				//print response from server..
+				//print response from server
 				System.out.println(line);
 				line = client.getUserGeneratedRequest();
 				client.writeRequest(line);
@@ -113,7 +114,7 @@ public class Client {
 			client = new Client(args[0], Integer.parseInt(args[1]));
 			String userGeneratedRequest = client.getUserGeneratedRequest();
 			client.writeRequest(userGeneratedRequest);
-			client.readAndPrintResponse(client);
+			client.readAndProcessResponse(client);
 		
 			
 	
