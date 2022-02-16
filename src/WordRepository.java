@@ -70,7 +70,26 @@ public class WordRepository {
 		}	
 	}
 
+	// Conditions: 1 - add    2 - remove   3 - search
+	public static wordManipulation(int condition, String word)
+	{
+		if(condition == 1)
+		{
+			words.add(word);
+		}
+		else if(condition == 2)
+		{
+			words.remove(word);
+		}
+		else
+		{
+			words.contains(word);
+		}
+	}
 
+
+
+	
 	public static void main(String[] args) throws IOException {
 		if (args.length != 1) {
 			System.err.println(USAGE);

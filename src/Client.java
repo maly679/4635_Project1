@@ -33,8 +33,19 @@ public class Client {
 		//instantiation of game.	
 		String line = "";
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		System.out.print("If you would like to start a new game, enter yes: ");
+		System.out.println("If you would like to start a new game, enter yes: ");
+		System.out.println("If you would like to add a word to the repository, enter add followed by the word");
+		System.out.println("If you would like to remove a word from the repositry enter remove followed by the word");
+		System.out.println("If you would like to check if a word is in the repository enter check followed by the word");
+
+
+
+
 		String userGeneratedRequest = in.readLine();
+
+		
+
+
 		if (userGeneratedRequest.equals("yes")) {
 			int numWords = processNumberofWords();
 			int failedAttemptsFactor = processFailedAttemptsFactor();
@@ -112,13 +123,16 @@ public class Client {
 		try {
 			
 			client = new Client(args[0], Integer.parseInt(args[1]));
+
+
 			String userGeneratedRequest = client.getUserGeneratedRequest();
 			client.writeRequest(userGeneratedRequest);
 			client.readAndProcessResponse(client);
 		
 			
-	
-		} catch (NumberFormatException e) {
+			
+		} catch (NumberFormatException e) 
+		{
 			System.err.println("Invalid port number: " + args[1] + ".");
 			System.exit(1);
 		} catch (Exception e) {
