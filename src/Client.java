@@ -31,7 +31,7 @@ public class Client {
 		}
 	}
 
-	String getUserGeneratedRequest() throws IOException {
+	public static String getUserGeneratedRequest() throws IOException {
 		// instantiation of game.
 		String line = "";
 		boolean playing;
@@ -69,11 +69,13 @@ public class Client {
 
 					while (playing) 
 					{
+
 						if(failedAttemptsFactor == 0)
 						{
 							System.out.println("You have run out of attempts");
 							playing = false;
 						}
+
 
 					}
 
@@ -141,6 +143,8 @@ public class Client {
 
 	public static void main(String[] args) throws IOException {
 		Client client = null;
+
+		getUserGeneratedRequest();
 
 		if (args.length != 2) {
 			System.out.println(USAGE);
