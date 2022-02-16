@@ -88,7 +88,7 @@ public class Client {
 		}
 	}
 
-	int processNumberofWords() throws IOException {
+	static int processNumberofWords() throws IOException {
 		// process number of words for game
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please enter the number of words for the game: ");
@@ -97,7 +97,7 @@ public class Client {
 
 	}
 
-	int processFailedAttemptsFactor() throws IOException {
+	static int processFailedAttemptsFactor() throws IOException {
 		// process number of failed attempts for game
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please enter the failed attempts factor: ");
