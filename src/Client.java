@@ -18,7 +18,7 @@ import java.net.UnknownHostException;
 import javax.lang.model.util.ElementScanner14;
 
 //Class invocation 
-public class Client {
+public static class Client {
 	public static int numWords = 0;
 	public static int failedAttemptsFactor = 0;
 	private static final String USAGE = "java Client [host] [5599]";
@@ -39,17 +39,8 @@ public class Client {
 		boolean playing;
 		boolean running = true;
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-<<<<<<< HEAD
+
 		System.out.print("If you would like to start a new game, enter yes: ");
-		String userGeneratedRequest = in.readLine();
-		if (userGeneratedRequest.equals("yes")) {
-			numWords = processNumberofWords();
-			failedAttemptsFactor = processFailedAttemptsFactor();
-			
-			line = "start " +  numWords + " " + failedAttemptsFactor;
-		} else {
-			getUserGeneratedRequest();
-=======
 
 		WordRepository wordRepo = new WordRepository();
 
@@ -59,7 +50,7 @@ public class Client {
 			System.out.println("If you would like to remove a word from the repositry enter remove");
 			System.out.println("If you would like to check if a word is in the repository enter check");
 
-			String userGeneratedRequest = in.readLine();
+			userGeneratedRequest = in.readLine();
 
 			if (userGeneratedRequest.equals("add")) {
 				System.out.println("please enter word to add");
@@ -80,15 +71,12 @@ public class Client {
 					line = "start " + numWords + " " + failedAttemptsFactor;
 					playing = true; // the user starts the game
 
-					while (playing) 
-					{
+					while (playing) {
 
-						if(failedAttemptsFactor == 0)
-						{
+						if (failedAttemptsFactor == 0) {
 							System.out.println("You have run out of attempts");
 							playing = false;
 						}
-
 
 					}
 
@@ -96,10 +84,11 @@ public class Client {
 					running = false;
 				}
 			}
-
-			return line;
->>>>>>> 38419a57e31351d555b62c352937364f2cdd4f6e
 		}
+		return line;
+
+	}
+
 	}
 
 	static int processNumberofWords() throws IOException {
@@ -138,7 +127,7 @@ public class Client {
 			// reading and processing next request
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			clientSocket.setSoTimeout(10000);
-		
+
 			String line = in.readLine();
 
 			while (!line.equals("Quit")) {
@@ -158,7 +147,7 @@ public class Client {
 
 	public static void main(String[] args) throws IOException {
 		Client client = null;
-
+		System.out.println("Running run");
 		getUserGeneratedRequest();
 
 		if (args.length != 2) {
@@ -168,23 +157,16 @@ public class Client {
 		try {
 
 			client = new Client(args[0], Integer.parseInt(args[1]));
-<<<<<<< HEAD
-			//starts a new game
-=======
 
->>>>>>> 38419a57e31351d555b62c352937364f2cdd4f6e
+			// starts a new game
+
 			String userGeneratedRequest = client.getUserGeneratedRequest();
 
-			while(failedAttemptsFactor > 0)
-			{
-			client.writeRequest(userGeneratedRequest);
-			client.readAndProcessResponse(client);
-<<<<<<< HEAD
+			while (failedAttemptsFactor > 0) {
+				client.writeRequest(userGeneratedRequest);
+				client.readAndProcessResponse(client);
 			}
-	
-=======
 
->>>>>>> 38419a57e31351d555b62c352937364f2cdd4f6e
 		} catch (NumberFormatException e) {
 			System.err.println("Invalid port number: " + args[1] + ".");
 			System.exit(1);

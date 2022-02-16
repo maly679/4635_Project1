@@ -76,20 +76,24 @@ public class WordRepository {
 		if(condition == 1)
 		{
 			words.add(word);
+			System.out.println("word added" + word);
 		}
 		else if(condition == 2)
 		{
 			words.remove(word);
+			System.out.println("word removed" + word);
 		}
 		else
 		{
 			if(words.contains(word))
 			{
 				System.out.println("The word is contained in the repository");
+				System.out.println("word checked" + word);
 			}
 			else
 			{
 				System.out.println("The word is not contained in the repository");
+				System.out.println("word checked not in repo" + word);
 			}
 		}
 	}
