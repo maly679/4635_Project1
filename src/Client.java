@@ -17,6 +17,8 @@ import java.net.UnknownHostException;
 
 //Class invocation 
 public class Client {
+	public static int numWords = 0;
+	public static int failedAttemptsFactor = 0;
 	private static final String USAGE = "java Client [host] [5599]";
 	private static Socket clientSocket;
 
@@ -36,9 +38,10 @@ public class Client {
 		System.out.print("If you would like to start a new game, enter yes: ");
 		String userGeneratedRequest = in.readLine();
 		if (userGeneratedRequest.equals("yes")) {
-			int numWords = processNumberofWords();
-			int failedAttemptsFactor = processFailedAttemptsFactor();
-			line =  "start " + numWords + " " + failedAttemptsFactor;
+			numWords = processNumberofWords();
+			failedAttemptsFactor = processFailedAttemptsFactor();
+			
+			line = "start " +  numWords + " " + failedAttemptsFactor;
 		} else {
 			getUserGeneratedRequest();
 		}
@@ -84,6 +87,7 @@ public class Client {
 			//reading and processing next request
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			clientSocket.setSoTimeout(10000);
+		
 			String line = in.readLine();
 
 			while (!line.equals("Quit")) {
@@ -108,15 +112,17 @@ public class Client {
 			System.out.println(USAGE);
 			System.exit(1);
 		}
-
 		try {
 			
 			client = new Client(args[0], Integer.parseInt(args[1]));
+			//starts a new game
 			String userGeneratedRequest = client.getUserGeneratedRequest();
+
+			while(failedAttemptsFactor > 0)
+			{
 			client.writeRequest(userGeneratedRequest);
 			client.readAndProcessResponse(client);
-		
-			
+			}
 	
 		} catch (NumberFormatException e) {
 			System.err.println("Invalid port number: " + args[1] + ".");
@@ -125,5 +131,6 @@ public class Client {
 			System.err.println(e.getMessage());
 			System.exit(1);
 		}
+
 	}
 }

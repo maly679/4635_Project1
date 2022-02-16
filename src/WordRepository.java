@@ -80,11 +80,11 @@ public class WordRepository {
 		//location set for words text file
 		BufferedReader bufReader = new BufferedReader(new FileReader("../words.txt")); 
 		String line = bufReader.readLine(); 
-		while (line != null) { words.add(line); 
+		while (line != null) {
+		words.add(line); 
 		line = bufReader.readLine();
 		}
 		bufReader.close();
-
 
 		int port = 0;
 		WordRepository server = null;
@@ -100,7 +100,6 @@ public class WordRepository {
 					+ port);
 			System.out.println(e.getMessage());
 		}
-
 
 		server.serve();
 		server.socket.close();
