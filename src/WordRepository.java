@@ -71,7 +71,7 @@ public class WordRepository {
 	}
 
 	// Conditions: 1 - add    2 - remove   3 - search
-	public static wordManipulation(int condition, String word)
+	public static void wordManipulation(int condition, String word)
 	{
 		if(condition == 1)
 		{
@@ -83,7 +83,14 @@ public class WordRepository {
 		}
 		else
 		{
-			words.contains(word);
+			if(words.contains(word))
+			{
+				System.out.println("The word is contained in the repository");
+			}
+			else
+			{
+				System.out.println("The word is not contained in the repository");
+			}
 		}
 	}
 
