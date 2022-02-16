@@ -70,7 +70,33 @@ public class WordRepository {
 		}	
 	}
 
+	// Conditions: 1 - add    2 - remove   3 - search
+	public static void wordManipulation(int condition, String word)
+	{
+		if(condition == 1)
+		{
+			words.add(word);
+		}
+		else if(condition == 2)
+		{
+			words.remove(word);
+		}
+		else
+		{
+			if(words.contains(word))
+			{
+				System.out.println("The word is contained in the repository");
+			}
+			else
+			{
+				System.out.println("The word is not contained in the repository");
+			}
+		}
+	}
 
+
+
+	
 	public static void main(String[] args) throws IOException {
 		if (args.length != 1) {
 			System.err.println(USAGE);
