@@ -35,6 +35,7 @@ public class Server {
 				initialPlay+= "-";
 			}
 		}
+	
 		return initialPlay+"C" + Integer.toString(counter);	
 
 	}
@@ -80,7 +81,7 @@ public class Server {
 			System.err.println(USAGE);
 			System.exit(1);
 		}
-
+		
 		int port = 0;
 		Server server = null;
 		try {
