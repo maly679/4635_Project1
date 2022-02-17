@@ -144,9 +144,14 @@ public class Client {
 	public static void main(String[] args) throws IOException {
 		Client client = null;
 		System.out.println("Running run");
+		boolean running = true;
+		boolean guessing;
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		String guess = "";
 
+		gamelogic logic = new gamelogic();
 
-		initializeWordRepository();
+		// initializeWordRepository();
 
 		getUserGeneratedRequest();
 
@@ -159,6 +164,23 @@ public class Client {
 			client = new Client(args[0], Integer.parseInt(args[1]));
 
 			// starts a new game
+			
+			while(running)
+			{
+				
+				guessing = true;
+				while(guessing)
+				{
+					guess = in.readLine();
+					// logic.enterWord(guess);
+					
+				if(failedAttemptsFactor == 0)
+				{
+					System.out.println("Out of guesses");
+					guessing = false;
+				}
+			}
+		
 
 			String userGeneratedRequest = client.getUserGeneratedRequest();
 
