@@ -167,7 +167,7 @@ public class Client {
 			
 			while(running)
 			{
-				
+
 				guessing = true;
 				while(guessing)
 				{
@@ -189,7 +189,8 @@ public class Client {
 				client.readAndProcessResponse(client);
 			}
 
-		} catch (NumberFormatException e) {
+		}
+	 } catch (NumberFormatException e) {
 			System.err.println("Invalid port number: " + args[1] + ".");
 			System.exit(1);
 		} catch (Exception e) {
@@ -199,3 +200,4 @@ public class Client {
 
 	}
 }
+
