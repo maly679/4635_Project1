@@ -76,24 +76,29 @@ public class WordRepository {
 		if(condition == 1)
 		{
 			words.add(word);
-			System.out.println("word added" + word);
+			if(words.contains(word))
+			{
+				System.out.println(word + " is already in the repository");
+			}
+			else
+			{
+			System.out.println(word + " has been added to the repository");
+			}
 		}
 		else if(condition == 2)
 		{
 			words.remove(word);
-			System.out.println("word removed" + word);
+			System.out.println( word + " has been removed from the repository");
 		}
 		else
 		{
 			if(words.contains(word))
 			{
-				System.out.println("The word is contained in the repository");
-				System.out.println("word checked" + word);
+				System.out.println(word + " is contained in the repository");
 			}
 			else
 			{
-				System.out.println("The word is not contained in the repository");
-				System.out.println("word checked not in repo" + word);
+				System.out.println(word + " is not contained in the repository");
 			}
 		}
 	}

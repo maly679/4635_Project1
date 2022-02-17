@@ -33,10 +33,13 @@ public class Client {
 		}
 	}
 
-	public static void initializeWordRepository() {
+	public static void initializeWordRepository() throws IOException {
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String userGeneratedRequest = "";
+
+		WordRepository wordRepo = new WordRepository();
+
 		while (!userGeneratedRequest.equals("yes")) {
 			System.out.println("If you would like to start a new game, enter yes: ");
 			System.out.println("If you would like to add a word to the repository, enter add");
@@ -141,6 +144,10 @@ public class Client {
 	public static void main(String[] args) throws IOException {
 		Client client = null;
 		System.out.println("Running run");
+
+
+		initializeWordRepository();
+
 		getUserGeneratedRequest();
 
 		if (args.length != 2) {
