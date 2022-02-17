@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
 
 import javax.lang.model.util.ElementScanner14;
 
-//Class invocation 
+
 public class Client {
 	public static int numWords = 0;
 	public static int failedAttemptsFactor = 0;
@@ -33,26 +33,19 @@ public class Client {
 		}
 	}
 
-	public static String getUserGeneratedRequest() throws IOException {
-		// instantiation of game.
-		String line = "";
-		boolean playing;
-		boolean running = true;
-		// System.out.print("If you would like to start a new game, enter yes: ");
-		// String gameSelection = in.readLine();
-		WordRepository wordRepo = new WordRepository();
+	public static void initializeWordRepository() {
 
-		
-		while (running) {
-
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		String userGeneratedRequest = "";
+		while (!userGeneratedRequest.equals("yes")) {
 			System.out.println("If you would like to start a new game, enter yes: ");
 			System.out.println("If you would like to add a word to the repository, enter add");
 			System.out.println("If you would like to remove a word from the repositry enter remove");
 			System.out.println("If you would like to check if a word is in the repository enter check");
-			String userGeneratedRequest = in.readLine();
-/*
+			userGeneratedRequest = in.readLine();
+
+			// TO DO : COMMUNICATE WITH WORD REPO 
+
 			if (userGeneratedRequest.equals("add")) {
 				System.out.println("please enter word to add");
 				userGeneratedRequest = in.readLine();
@@ -65,35 +58,30 @@ public class Client {
 				System.out.println("Please enter word to check");
 				userGeneratedRequest = in.readLine();
 				wordRepo.wordManipulation(3, userGeneratedRequest);
-			} else {
-				if (userGeneratedRequest.equals("yes")) {
-					int numWords = processNumberofWords();
-					int failedAttemptsFactor = processFailedAttemptsFactor();
-					line = "start " + numWords + " " + failedAttemptsFactor;
-					playing = true; // the user starts the game
-
-					while (playing) {
-
-						if (failedAttemptsFactor == 0) {
-							System.out.println("You have run out of attempts");
-							playing = false;
-						}
-
-					}
-
-				} else if (!userGeneratedRequest.equals("yes")) {
-					running = false;
-				}
-				
 			}
-
 		}
-		*/
+		return;
 	}
+
+	public static String getUserGeneratedRequest() throws IOException {
+		// instantiation of game.
+		String line = "";
+		boolean playing;
+		boolean running = true;
+
+		WordRepository wordRepo = new WordRepository();
+		initializeWordRepository();
+
+		while (running) {
+
+		
+		
+		
+			  
+			
+				 
+		}
 		return line;
-
-	
-
 	}
 
 	static int processNumberofWords() throws IOException {
