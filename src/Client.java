@@ -18,7 +18,7 @@ import java.net.UnknownHostException;
 import javax.lang.model.util.ElementScanner14;
 
 //Class invocation 
-public static class Client {
+public class Client {
 	public static int numWords = 0;
 	public static int failedAttemptsFactor = 0;
 	private static final String USAGE = "java Client [host] [5599]";
@@ -38,20 +38,21 @@ public static class Client {
 		String line = "";
 		boolean playing;
 		boolean running = true;
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-
-		System.out.print("If you would like to start a new game, enter yes: ");
-
+		// System.out.print("If you would like to start a new game, enter yes: ");
+		// String gameSelection = in.readLine();
 		WordRepository wordRepo = new WordRepository();
 
+		
 		while (running) {
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
 			System.out.println("If you would like to start a new game, enter yes: ");
 			System.out.println("If you would like to add a word to the repository, enter add");
 			System.out.println("If you would like to remove a word from the repositry enter remove");
 			System.out.println("If you would like to check if a word is in the repository enter check");
-
-			userGeneratedRequest = in.readLine();
-
+			String userGeneratedRequest = in.readLine();
+/*
 			if (userGeneratedRequest.equals("add")) {
 				System.out.println("please enter word to add");
 				userGeneratedRequest = in.readLine();
@@ -80,14 +81,18 @@ public static class Client {
 
 					}
 
-				} else if (userGeneratedRequest.equals("quit")) {
+				} else if (!userGeneratedRequest.equals("yes")) {
 					running = false;
 				}
+				
 			}
+
 		}
+		*/
+	}
 		return line;
 
-	}
+	
 
 	}
 
