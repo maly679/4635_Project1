@@ -171,8 +171,8 @@ public class Client {
 				guessing = true;
 				while(guessing)
 				{
-					guess = in.readLine();
-					// logic.enterWord(guess);
+					// guess = client.readAndProcessResponse(client);
+					logic.enterWord();
 					
 				if(failedAttemptsFactor == 0)
 				{
@@ -182,12 +182,12 @@ public class Client {
 			}
 		
 
-			String userGeneratedRequest = client.getUserGeneratedRequest();
+			// String userGeneratedRequest = client.getUserGeneratedRequest();
 
-			while (failedAttemptsFactor > 0) {
-				client.writeRequest(userGeneratedRequest);
-				client.readAndProcessResponse(client);
-			}
+			// while (failedAttemptsFactor > 0) {
+			// 	client.writeRequest(userGeneratedRequest);
+			// 	client.readAndProcessResponse(client);
+			// }
 
 		}
 	 } catch (NumberFormatException e) {

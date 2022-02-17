@@ -88,7 +88,7 @@ public class gamelogic {
             {
                 System.out.println("You lose");
             }
-        }
+         }
         return;
     }
 
