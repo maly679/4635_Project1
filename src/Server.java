@@ -1,3 +1,5 @@
+
+
 /**
  * Title: COMP4635 Assignment 1
  * This class is used for the Server that processes requests from clients and interfaces with WordRepository
@@ -39,6 +41,73 @@ public class Server {
 		return initialPlay+"C" + Integer.toString(counter);	
 
 	}
+
+	public static void enterWord() throws IOException {
+        /*
+         * BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+         * System.out.print("Please guess a letter or solve the phrase: ");
+         * String userGeneratedRequest = in.readLine();
+         */
+        
+            System.out.println(blanks + failedAttemptsFactor);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("Please enter a letter or guess the phrase: ");
+            String userSelection = in.readLine();
+
+            if (userSelection.length() > 1) {
+
+                System.out.println("user selection: " + userSelection);
+                System.out.println("gameWord: " + gameWord);
+
+                if (userSelection.equals(gameWord)) {
+                    System.out.println("You are correct!");
+                    
+                } else {
+                    System.out.println("Incorrect Guess");
+                    failedAttemptsFactor -=1;
+                }
+            } else {
+                Character userChar = userSelection.charAt(0);
+
+                if (userSelection.equals("*")) 
+                {
+
+                    System.out.println("Creating new game");
+                    //loop to top
+                }
+
+                else if (userSelection.equals(".")) {
+                    System.out.println("Ending game");
+                    return;
+                } else {
+                    if (gameWord.contains(userSelection)) {
+                        for (int i = 0; i < gameWord.length(); i++) {
+
+                            char[] blankChar = blanks.toCharArray();
+
+                            if (gameWord.charAt(i) == userChar) {
+                                blankChar[i] = userChar;
+                                blanks = String.valueOf(blankChar);
+                            }
+                        }
+                    } else {
+
+                        failedAttemptsFactor = failedAttemptsFactor - 1;
+                        System.out.println("Letter not found");
+                    }
+
+                }
+
+            }
+            if(failedAttemptsFactor == 0)
+            {
+                System.out.println("You lose");
+            }
+         
+        return;
+    }
+
 
 	public void serve() {
 		//Process the gameplay based on Client.java set parameters for word and factor attempts/assignment requirements.

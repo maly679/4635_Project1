@@ -33,13 +33,11 @@ public class Client {
 		}
 	}
 
-	public static void initializeWordRepository() throws IOException {
+	public static boolean initializeWordRepository() throws IOException {
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String userGeneratedRequest = "";
-
 		WordRepository wordRepo = new WordRepository();
-
 		while (!userGeneratedRequest.equals("yes")) {
 			System.out.println("If you would like to start a new game, enter yes: ");
 			System.out.println("If you would like to add a word to the repository, enter add");
@@ -62,8 +60,13 @@ public class Client {
 				userGeneratedRequest = in.readLine();
 				wordRepo.wordManipulation(3, userGeneratedRequest);
 			}
-		}
-		return;
+			else if(userGeneratedRequest.equals("no") ||userGeneratedRequest.equals("quit") )
+				{
+					return false;	
+				}
+		
+			}
+		return true;
 	}
 
 	public static String getUserGeneratedRequest() throws IOException {
@@ -76,13 +79,7 @@ public class Client {
 		initializeWordRepository();
 
 		while (running) {
-
-		
-		
-		
-			  
-			
-				 
+	 
 		}
 		return line;
 	}
@@ -141,18 +138,17 @@ public class Client {
 		}
 	}
 
+
+
 	public static void main(String[] args) throws IOException {
 		Client client = null;
 		System.out.println("Running run");
 		boolean running = true;
 		boolean guessing;
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		String guess = "";
+	//	BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	//	String guess = "";
 
 		gamelogic logic = new gamelogic();
-
-		// initializeWordRepository();
-
 		getUserGeneratedRequest();
 
 		if (args.length != 2) {
@@ -167,13 +163,12 @@ public class Client {
 			
 			while(running)
 			{
-
-				guessing = true;
+				 guessing = initializeWordRepository();
+				
 				while(guessing)
 				{
 					// guess = client.readAndProcessResponse(client);
 					logic.enterWord();
-					
 				if(failedAttemptsFactor == 0)
 				{
 					System.out.println("Out of guesses");
