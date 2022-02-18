@@ -1,9 +1,8 @@
-
 /**
  * Title: COMP4635 Assignment 1
  * This class is used for the Client that entails the user interface activities.
  * Usage: java Client [localhost] [5599] 
- * @author Mohamed Aly
+ * @author Mohamed Aly Chad Koivuneva Erik Szilagyi
  */
 
 import java.io.BufferedReader;
@@ -11,9 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
+
 
 //Class invocation 
 public class Client {
@@ -57,7 +54,7 @@ public class Client {
 		return numWords;
 
 	}
-
+	
 	int processFailedAttemptsFactor() throws IOException {
 		// process number of failed attempts for game
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -66,18 +63,9 @@ public class Client {
 		return failedAttempts;
 	}
 
-	// public static void enterWord(Client client) throws IOException {
-	//
-	//
-	// BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	// System.out.print("Please enter a letter or guess the phrase: ");
-	// String userSelection = in.readLine();
-	// client.writeRequest(userSelection);
-	// }
 
 	void writeRequest(String UserGeneratedRequest) {
 		// writing reque`t to server
-	//	System.out.println(UserGeneratedRequest);
 		System.out.println("\nSending the request: " + UserGeneratedRequest + " to the server!");
 		try {
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
@@ -97,19 +85,14 @@ public class Client {
 		phrase = phrase.concat("C").concat(Integer.toString(trys));
 		
 		System.out.println(phrase);
-		// in.close();
 		return phrase;
 	}
 
 	void readAndProcessResponse(Client client) {
 		System.out.println("\nWaiting for reply from the server!");
 		try {
-			// reading and processing next request
+			
 			String line = readServerStream(clientSocket);
-			// PrintStream out = new PrintStream(clientSocket.getOutputStream());
-
-			// print response from server
-			// System.out.println(line);
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
 			while (!in.readLine().equals(null) && !in.readLine().equals("quit")) {

@@ -2,7 +2,7 @@
  * Title: COMP4635 Assignment 1
  * This class is used as a word repository that is to store and process words and word changes during the game.
  * Usage: java WordRepository [5599] 
- * @author Mohamed Aly
+ * @author Mohamed Aly Erik Szilagyi
  */ 
 
 import java.io.BufferedReader;
@@ -84,8 +84,6 @@ public class WordRepository {
 		line = bufReader.readLine();
 		}
 		bufReader.close();
-
-
 		int port = 0;
 		WordRepository server = null;
 		try {
