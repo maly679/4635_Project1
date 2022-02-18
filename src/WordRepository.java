@@ -36,7 +36,7 @@ public class WordRepository {
 			// generating the index using Math.random()
 			int index = (int) ((Math.random() * (words.size() - 1)) + 1);
 
-			generatedWord = generatedWord + words.get(index)  + " " ;
+			generatedWord = generatedWord + words.get(index).toLowerCase()  + " " ;
 		}
 		return generatedWord;
 
@@ -70,42 +70,7 @@ public class WordRepository {
 		}	
 	}
 
-	// Conditions: 1 - add    2 - remove   3 - search
-	public static void wordManipulation(int condition, String word)
-	{
-		if(condition == 1)
-		{
-			words.add(word);
-			if(words.contains(word))
-			{
-				System.out.println(word + " is already in the repository");
-			}
-			else
-			{
-			System.out.println(word + " has been added to the repository");
-			}
-		}
-		else if(condition == 2)
-		{
-			words.remove(word);
-			System.out.println( word + " has been removed from the repository");
-		}
-		else
-		{
-			if(words.contains(word))
-			{
-				System.out.println(word + " is contained in the repository");
-			}
-			else
-			{
-				System.out.println(word + " is not contained in the repository");
-			}
-		}
-	}
 
-
-
-	
 	public static void main(String[] args) throws IOException {
 		if (args.length != 1) {
 			System.err.println(USAGE);
@@ -115,11 +80,11 @@ public class WordRepository {
 		//location set for words text file
 		BufferedReader bufReader = new BufferedReader(new FileReader("../words.txt")); 
 		String line = bufReader.readLine(); 
-		while (line != null) {
-		words.add(line); 
+		while (line != null) { words.add(line); 
 		line = bufReader.readLine();
 		}
 		bufReader.close();
+
 
 		int port = 0;
 		WordRepository server = null;
@@ -135,6 +100,7 @@ public class WordRepository {
 					+ port);
 			System.out.println(e.getMessage());
 		}
+
 
 		server.serve();
 		server.socket.close();
