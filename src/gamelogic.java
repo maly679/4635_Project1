@@ -75,7 +75,9 @@ public class gamelogic {
                                 blanks = String.valueOf(blankChar);
                             }
                         }
-                    } else {
+                    } 
+                    
+                    else {
 
                         failedAttemptsFactor = failedAttemptsFactor - 1;
                         System.out.println("Letter not found");

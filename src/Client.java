@@ -112,12 +112,12 @@ public class Client {
 			// System.out.println(line);
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-			while (!in.readLine().equals(null)) {
+			while (!in.readLine().equals(null) && !in.readLine().equals("quit")) {
 				System.out.print("Please enter your input: ");
 				String word = in.readLine();
 				writeRequest(word);
-				// System.out.print("Please enter your input: ");
 			}
+
 			clientSocket.close();
 			return;
 		} catch (IOException e) {

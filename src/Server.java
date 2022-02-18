@@ -185,9 +185,9 @@ public class Server {
 			System.err.println(USAGE);
 			System.exit(1);
 		}
-
 		int port = 0;
 		Server server = null;
+		
 		try {
 			port = Integer.parseInt(args[0]);
 			server = new Server(port);
