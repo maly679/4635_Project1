@@ -15,9 +15,10 @@ public class Server {
 	private static ServerSocket serverSocket;
 	private int counter;
 	private static String gameWord = "";
+	private static String gameWordFixed = "";
 	private static int failedAttemptsFactor;
 	private static String blanks;
-	private static String userSelection;
+	private static String userSelection = "";
 	
 	public Server() throws IOException {
 		this(5599);
@@ -31,7 +32,7 @@ public class Server {
 		//Setting initial stage of game based on assignment requirements.
 		String initialPlay = "";
 		char [] phraseChar =  gameWord.trim().toCharArray();
-		System.out.println(gameWord);
+	//	System.out.println(gameWord);
 		for (int i = 0; i < phraseChar.length; i ++) {
 			if(Character.isWhitespace(phraseChar[i])) {
 				initialPlay+= " ";
@@ -39,7 +40,7 @@ public class Server {
 				initialPlay+= "-";
 			}
 		}
-		return initialPlay+"C" + Integer.toString(counter);	
+		return initialPlay; //+"C" + failedAttemptsFactor;//Integer.toString(counter);	
 
 	}
 
@@ -57,9 +58,11 @@ public class Server {
 				String inputLine = in.readLine();
 				int numWords = Integer.parseInt(inputLine.split(" ")[1]); 
 				int factorAttempts = Integer.parseInt(inputLine.split(" ")[2]); 
-				failedAttemptsFactor = factorAttempts;
-				counter = numWords * factorAttempts;
-				System.out.println(factorAttempts);
+
+				failedAttemptsFactor = factorAttempts  * numWords;
+				
+				//counter = numWords * factorAttempts;
+				//System.out.println("fail attempts: " + failedAttemptsFactor);
 				DatagramSocket socket = new DatagramSocket();
 				byte[] buf = new byte[256];
 				byte[] inputbuf = new byte[256];
@@ -77,12 +80,11 @@ public class Server {
 				
 				  while (!in.readLine().equals(null)) {
 				        userSelection = in.readLine();
-						System.out.println(userSelection);
-
+					//	System.out.println(userSelection);
 				       enterWord(userSelection);
-					System.out.println(userSelection);
-					  }
-				  
+					//System.out.println(userSelection);
+					  }				 
+
 				clientSocket.close();
 			} catch (SocketException e) {
 				System.out.println(e.getMessage());
@@ -94,7 +96,6 @@ public class Server {
 	
 	
 	 public static void enterWord(String userSelection) throws IOException {
-
 	        /*
 	         * BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	         * System.out.print("Please guess a letter or solve the phrase: ");
@@ -116,17 +117,16 @@ public class Server {
 ////			blanks = initialGamePlay;
 //			System.out.println(userSelection);
 ////			clientSocket.close();
-		
+			boolean win = false;
 	        if (failedAttemptsFactor > 0) {
-	            System.out.println(blanks);
+	            
 	            if (userSelection.length() > 1) {
 
-	                System.out.println("user selection: " + userSelection);
-	                System.out.println("gameWord: " + gameWord);
-
-	                if (userSelection.equals(gameWord)) {
+					gameWordFixed = gameWord.substring(0,userSelection.length());
+	                
+					if (userSelection.equals(gameWordFixed)) {
 	                    System.out.println("You are correct!");
-	                    
+	                    win = true;
 	                } else {
 	                    System.out.println("Incorrect Guess");
 	                    failedAttemptsFactor -=1;
@@ -161,13 +161,22 @@ public class Server {
 	                    }
 
 	                }
-
 	            }
 	            if(failedAttemptsFactor == 0)
 	            {
 	                System.out.println("You lose");
 	            }
 	         }
+			
+			 if(win)
+			 
+				 System.out.println(gameWord + "C" + failedAttemptsFactor);
+			 
+			 else
+			 {
+			 System.out.println(blanks + "C" + failedAttemptsFactor);
+			
+			 }
 	        return;
 	    }
 
@@ -188,6 +197,6 @@ public class Server {
 			System.out.println(e.getMessage());
 		}
 		server.serve();
-//		enterWord();
+
 	}
 }
