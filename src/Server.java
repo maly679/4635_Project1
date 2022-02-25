@@ -14,11 +14,11 @@ public class Server {
 	private static final String USAGE = "Usage: java Server [5599]";
 	private static ServerSocket serverSocket;
 	private int counter;
-	private static String gameWord = "";
-	private static String gameWordFixed = "";
-	private static int failedAttemptsFactor;
-	private static String blanks;
-	private static String userSelection = "";
+	private String gameWord = "";
+	private String gameWordFixed = "";
+	private int failedAttemptsFactor;
+	private String blanks;
+	private String userSelection = "";
 	
 	public Server() throws IOException {
 		this(5599);
@@ -76,11 +76,34 @@ public class Server {
 				String initialGamePlay = setInitialGamePlay(numWords);
 				blanks = initialGamePlay;
 				out.println(initialGamePlay);
-				
-				  while (!in.readLine().equals(null)) {
+				boolean gameCont = true;
+
+				  while (!in.readLine().equals(null)  ) {
 				        userSelection = in.readLine();		
-				       enterWord(userSelection);
+				        enterWord(userSelection);
 					  }				 
+					  int gameState = 1;//INIT TO 1 once user wants to play a new game.
+					switch(gameState){
+						case 0:{
+							//Loop back to the top where it asks user if they would like to play a new game
+						}
+						break;
+						case 1:{//1 round of gameplay
+							gameState = enterWord(userSelection);
+						}
+						break;
+						case 2:{
+							//Loop back to the top where it asks user if they would like to play a new game + display score
+						}
+						break;
+						case 3:{
+							//same as case 0
+						}
+						break;
+
+						default: break;
+						
+					}
 
 				clientSocket.close();
 			} catch (SocketException e) {
@@ -91,10 +114,11 @@ public class Server {
 		}		
 	}
 	
-	
-	 public static void enterWord(String userSelection) throws IOException {
-	      
-			boolean win = false;
+	//1 = start of a new game/game continues. 0=game over. 2=game is won. 3 = new game, or exit entirely.
+	 public int enterWord(String userSelection) throws IOException {
+		 	int gameState = 1;
+			System.out.println(gameWord);
+
 	        if (failedAttemptsFactor > 0) {
 	            
 	            if (userSelection.length() > 1) {
@@ -103,7 +127,10 @@ public class Server {
 	                
 					if (userSelection.equals(gameWordFixed)) {
 	                    System.out.println("You are correct!");
-	                    win = true;
+	                    gameState = 2;
+						System.out.println(gameWord + "C" + failedAttemptsFactor);
+						return gameState;
+						
 	                } else {
 	                    System.out.println("Incorrect Guess");
 	                    failedAttemptsFactor -=1;
@@ -115,13 +142,16 @@ public class Server {
 	                {
 
 	                    System.out.println("Creating new game");
-	                    //loop to top
+	                    gameState = 1;
+						return gameState;
 	                }
 
 	                else if (userSelection.equals(".")) {
 	                    System.out.println("Ending game");
-	                    return;
-	                } else {
+	                    gameState = 3;
+						return gameState;
+	                } 
+					else {
 	                    if (gameWord.contains(userSelection)) {
 	                        for (int i = 0; i < gameWord.length(); i++) {
 
@@ -142,19 +172,15 @@ public class Server {
 	            if(failedAttemptsFactor == 0)
 	            {
 	                System.out.println("You lose");
+					gameState = 0;
+					return gameState;
 	            }
 	         }
 			
-			 if(win)
-			 
-				 System.out.println(gameWord + "C" + failedAttemptsFactor);
-			 
-			 else
-			 {
-			 System.out.println(blanks + "C" + failedAttemptsFactor);
 			
-			 }
-	        return;
+			 System.out.println(blanks + "C" + failedAttemptsFactor);
+			 
+	        return gameState;
 	    }
 
 	public static void main(String[] args) throws IOException {

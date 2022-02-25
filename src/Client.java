@@ -15,10 +15,10 @@ import java.net.Socket;
 //Class invocation 
 public class Client {
 	private static final String USAGE = "java Client [host] [5599]";
-	private static Socket clientSocket;
-	private static int failedAttemptsFactor;
-	private static int numWords;
-	private static String phrase;
+	private static Socket clientSocket;//is it the same socket with each client object?
+	private int failedAttemptsFactor;
+	private int numWords;
+	private String phrase;
 
 	public Client(String host, int port) {
 		try {
@@ -95,7 +95,7 @@ public class Client {
 			String line = readServerStream(clientSocket);
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-			while (!in.readLine().equals(null) && !in.readLine().equals("quit")) {
+			while (!in.readLine().equals(null)){
 				System.out.print("Please enter your input: ");
 				String word = in.readLine();
 				writeRequest(word);

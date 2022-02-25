@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class WordRepository {
 	private static final String USAGE = "Usage: java WordRepository [5599]";
 	DatagramSocket socket;
-	static ArrayList<String> words = new ArrayList<>();
+	ArrayList<String> words = new ArrayList<>();
 	public WordRepository() throws IOException {
 		this(5599);
 	}
