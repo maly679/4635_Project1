@@ -80,8 +80,7 @@ public class Server {
 
 				  while (!in.readLine().equals(null)  ) {
 				        userSelection = in.readLine();		
-				        enterWord(userSelection);
-					  }				 
+				        enterWord(userSelection);				 
 					  int gameState = 1;//INIT TO 1 once user wants to play a new game.
 					switch(gameState){
 						case 0:{
@@ -104,7 +103,7 @@ public class Server {
 						default: break;
 						
 					}
-
+				  }
 				clientSocket.close();
 			} catch (SocketException e) {
 				System.out.println(e.getMessage());
